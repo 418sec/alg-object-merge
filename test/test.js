@@ -59,4 +59,11 @@ describe( 'Tests', () =>
             'Didn`t merge objects properly'
         );
     });
+
+    it("should prevent prototype pollution", () => {
+      var obj = {};
+      var result = ObjectMerge(obj, JSON.parse('{"__proto__":{"polluted":"Yes! Its Polluted"}}'))
+      assert.equal(obj.polluted, undefined);
+      assert.equal({}.polluted, undefined);
+    })
 });
